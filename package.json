@@ -85,7 +85,7 @@
       {
         "view": "ExplorerView",
         "contents": "To get started, you need to select your vault location.\n[Select Location](command:vsobsidian.setupVault)",
-        "when": "context.vsobsidian.vaultLocation == empty"
+        "when": "config.vsobsidian.vaultLocation == ''"
       }
     ],
     "commands": [
