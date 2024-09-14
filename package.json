@@ -1,0 +1,117 @@
+{
+  "name": "vsobsidian",
+  "displayName": "VSObsidian",
+  "description": "Work with your Obsidian vaults directly from VSCode",
+  "version": "0.1.0",
+  "author": {
+    "name": "j0nl1",
+    "email": "javieragv@protonmail.com"
+  },
+  "publisher": "j0nl1",
+  "engines": {
+    "vscode": "^1.93.0",
+    "node": ">= 20"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "build/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/j0nl1/vsobsidian"
+  },
+  "activationEvents": [],
+  "contributes": {
+    "menus": {
+      "view/title": [
+				{
+					"command": "vsobsidian.refreshExplorer",
+          "when": "view == explorer-view",
+					"group": "navigation@1"
+				},
+        {
+					"command": "vsobsidian.setupVault",
+          "when": "view == explorer-view",
+					"group": "navigation@2"
+				}
+			],
+      "view/item/context": [
+            {
+          "command": "vsobsidian.setupVault",
+          "when": "view == explorer-view && resourceExtname != ''",
+          "group": "navigation",
+          "title": "Rename"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vsobsidian-panel",
+          "title": "VSObsidian",
+          "icon": "assets/activity-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "vsobsidian-panel": [
+        {
+          "id": "explorer-view",
+          "name": "Explorer"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "explorer-view",
+        "contents": "To get started, you need to select your vault location.\n[Select Location](command:vsobsidian.setupVault)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vsobsidian.setupVault",
+        "title": "Select Vault",
+        "category": "VSObsidian",
+        "icon": "$(shield)"
+      },
+      {
+        "command": "vsobsidian.refreshExplorer",
+        "title": "Refresh",
+        "category": "VSObsidian",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vsobsidian.showPopupMenu",
+        "title": "Delete",
+        "category": "VSObsidian",
+        "icon": "$(trash)"
+      }
+    ],
+    "configuration": {
+      "title": "VSObsidian",
+      "properties": {
+        "vsobsidian.vaultLocation": {
+          "type": "string",
+          "default": "",
+          "description": "Path to your Obsidian vault"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup --clean",
+    "watch": "tsup --watch",
+    "prepublish": "pnpm vsce package --no-dependencies -o ./distribution"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "@types/node": "^22.5.4",
+    "@types/vscode": "^1.93.0",
+    "@vscode/vsce": "^3.1.0",
+    "tsup": "^8.2.4",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "glob": "^11.0.0"
+  }
+}

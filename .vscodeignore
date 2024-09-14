@@ -1,0 +1,8 @@
+.vscode/**
+src/**
+.gitignore
+biome.json
+tsconfig.json
+tsup.config.ts
+pnpm-lock.yaml
+**/**.map
