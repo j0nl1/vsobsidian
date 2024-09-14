@@ -1,1 +1,1 @@
-export { TreeItem } from "./item";
+export { TreeItem, ItemType, ItemTypes } from "./item";

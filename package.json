@@ -2,7 +2,7 @@
   "name": "vsobsidian",
   "displayName": "VSObsidian",
   "description": "Work with your Obsidian vaults directly from VSCode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "j0nl1",
     "email": "javieragv@protonmail.com"
@@ -16,6 +16,7 @@
     "Other"
   ],
   "main": "build/extension.js",
+  "icon": "assets/extension-icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/j0nl1/vsobsidian"
@@ -24,47 +25,67 @@
   "contributes": {
     "menus": {
       "view/title": [
-				{
-					"command": "vsobsidian.refreshExplorer",
-          "when": "view == explorer-view",
-					"group": "navigation@1"
-				},
         {
-					"command": "vsobsidian.setupVault",
-          "when": "view == explorer-view",
-					"group": "navigation@2"
-				}
-			],
-      "view/item/context": [
-            {
+          "command": "vsobsidian.refreshExplorer",
+          "when": "view == ExplorerView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vsobsidian.createFile",
+          "when": "view == ExplorerView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "vsobsidian.createFolder",
+          "when": "view == ExplorerView",
+          "group": "navigation@3"
+        },
+        {
           "command": "vsobsidian.setupVault",
-          "when": "view == explorer-view && resourceExtname != ''",
-          "group": "navigation",
-          "title": "Rename"
+          "when": "view == ExplorerView",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vsobsidian.openInOS",
+          "when": "view == ExplorerView",
+          "group": "side@1"
+        },
+        {
+          "command": "vsobsidian.renameElement",
+          "when": "view == ExplorerView",
+          "group": "side@2"
+        },
+        {
+          "command": "vsobsidian.deleteElement",
+          "when": "view == ExplorerView",
+          "group": "side@3"
         }
       ]
     },
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "vsobsidian-panel",
+          "id": "vault-explorer",
           "title": "VSObsidian",
           "icon": "assets/activity-icon.svg"
         }
       ]
     },
     "views": {
-      "vsobsidian-panel": [
+      "vault-explorer": [
         {
-          "id": "explorer-view",
+          "id": "ExplorerView",
           "name": "Explorer"
         }
       ]
     },
     "viewsWelcome": [
       {
-        "view": "explorer-view",
-        "contents": "To get started, you need to select your vault location.\n[Select Location](command:vsobsidian.setupVault)"
+        "view": "ExplorerView",
+        "contents": "To get started, you need to select your vault location.\n[Select Location](command:vsobsidian.setupVault)",
+        "when": "context.vsobsidian.vaultLocation == empty"
       }
     ],
     "commands": [
@@ -81,10 +102,26 @@
         "icon": "$(refresh)"
       },
       {
-        "command": "vsobsidian.showPopupMenu",
-        "title": "Delete",
-        "category": "VSObsidian",
-        "icon": "$(trash)"
+        "command": "vsobsidian.createFile",
+        "title": "Create File",
+        "icon": "$(file-add)"
+      },
+      {
+        "command": "vsobsidian.createFolder",
+        "title": "Create Folder",
+        "icon": "$(file-directory-create)"
+      },
+      {
+        "command": "vsobsidian.openInOS",
+        "title": "Open in Explorer"
+      },
+      {
+        "command": "vsobsidian.renameElement",
+        "title": "Rename"
+      },
+      {
+        "command": "vsobsidian.deleteElement",
+        "title": "Delete"
       }
     ],
     "configuration": {
@@ -101,7 +138,7 @@
   "scripts": {
     "build": "tsup --clean",
     "watch": "tsup --watch",
-    "prepublish": "pnpm vsce package --no-dependencies -o ./distribution"
+    "prepublish": "pnpm build && pnpm vsce package --no-dependencies -o ./distribution"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
