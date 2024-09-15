@@ -85,7 +85,12 @@ export class ExplorerDataProvider
   }
 
   async createElement(target: TreeItem | undefined, type: ItemTypes): Promise<void> {
-    const targetDir = target?.resourceUri?.fsPath || this.rootElement?.resourceUri?.fsPath;
+    const targetDir = (() => {
+      if (target?.contextValue === ItemType.File) return this.rootElement?.resourceUri?.fsPath;
+      if (target?.contextValue === ItemType.Folder) return target.resourceUri?.fsPath;
+      if (!target) return this.rootElement?.resourceUri?.fsPath;
+    })();
+
     if (!targetDir) return;
 
     const isFile = type === ItemType.File;

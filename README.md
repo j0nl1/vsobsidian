@@ -18,18 +18,8 @@
   <img src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" alt="License MIT">
 </a>
 </p>
-<p align="center">
-    <em>Built with ❤️ using: </em>
-</p>
-<p align="center">
-  <img src="https://img.shields.io/badge/TypeScript-3178C6.svg?style=default&logo=TypeScript&logoColor=white" alt="TypeScript">
-</p>
-
 <br>
 
+## Showcase
 
-
-
-##  License
-
-This project is protected under the MIT License. For more details, refer to the [LICENSE](/LICENSE) file.
+![Showcase](/assets/showcase.gif)

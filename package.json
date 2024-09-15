@@ -2,7 +2,7 @@
   "name": "vsobsidian",
   "displayName": "VSObsidian",
   "description": "Work with your Obsidian vaults directly from VSCode",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "j0nl1",
     "email": "javieragv@protonmail.com"
